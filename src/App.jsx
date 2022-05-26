@@ -44,12 +44,10 @@ const Heading = styled.h1`
 function App() {
   const [monedas, setMonedas] = useState({});
   const [resultado, setResultado] = useState({});
-  const [cargando, setCargando] = useState(false);
 
   useEffect(() => {
     if (Object.keys(monedas).length > 0) {
       const cotizarCripto = async () => {
-        setCargando(true);
         setResultado({});
 
         const { moneda, criptomoneda } = monedas;
@@ -59,8 +57,6 @@ function App() {
         const resultado = await respuesta.json();
 
         setResultado(resultado.DISPLAY[criptomoneda][moneda]);
-
-        setCargando(false);
       };
 
       cotizarCripto();
@@ -74,7 +70,6 @@ function App() {
       <div>
         <Heading>Cotiza Criptomonedas al Instante</Heading>
         <Formulario setMonedas={setMonedas} />
-
         {resultado.PRICE && <Resultado resultado={resultado} />}
       </div>
     </Contenedor>
